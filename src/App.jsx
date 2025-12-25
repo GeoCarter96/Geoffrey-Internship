@@ -7,9 +7,12 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import axios from "axios";
 
+
 function App() {
    
   return (
+    
+
     <Router>
       <Nav />
       <Routes>
@@ -19,7 +22,10 @@ function App() {
         <Route path="/item-details" element={<ItemDetails />} />
       </Routes>
       <Footer />
+     
     </Router>
+    
+    
   );
 }
 
