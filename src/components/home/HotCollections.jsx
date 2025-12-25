@@ -43,19 +43,38 @@ const HotCollections = () => {
     <section id="section-collections" className="no-bottom">
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">
+          <div className="col-lg-12 ">
             <div className="text-center">
               <h2>Hot Collections</h2>
              {loading && <HotSkeleton cards={1}/>}
               <div className="small-border bg-color-2 "></div>
             </div>
           </div>
-          <OwlCarousel className='owl-theme ' loop margin={1} nav>
+         <OwlCarousel
+              className="owl-theme"
+              loop
+              margin={16}
+              nav
+              responsive={{
+                0: {
+                  items: 1,
+                },
+                768: {
+                  items: 2,
+                },
+                1024: {
+                  items: 3,
+                },
+                1600: {
+                  items: 4,
+                },
+              }}
+ >
          {info.map((infoItem, index) => (
           
-            <div   className="col-lg-50 col-md-15 col-sm-12 col-xs-8 " key={index}>
-              <div className="nft_coll ">
-                <div className="nft_wrap ">
+            <div className="item" key={index}>
+              <div className="nft_coll  ">
+                <div className="nft_wrap w-full ">
                   
                   <Link to="/item-details"> 
                     <img src={infoItem.nftImage }  className="lazy img-fluid " alt="" />

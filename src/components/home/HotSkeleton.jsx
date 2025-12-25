@@ -18,8 +18,27 @@ const HotSkeleton = ({cards}) => {
                     </div>
                   </div>
                
-                          <OwlCarousel className='owl-theme ' loop margin={5} nav>
-               <div   className="col-lg-50 col-md-15 col-sm-12 col-xs-8 " >
+                          <OwlCarousel
+                                       className="owl-theme"
+                                       loop
+                                       margin={16}
+                                       nav
+                                       responsive={{
+                                         0: {
+                                           items: 1,
+                                         },
+                                         768: {
+                                           items: 2,
+                                         },
+                                         1024: {
+                                           items: 3,
+                                         },
+                                         1600: {
+                                           items: 4,
+                                         },
+                                       }}
+                          >
+               <div className="item" >
                     <div className="nft_coll ">
                       <div className="nft_wrap ">
                    <Skeleton/>
