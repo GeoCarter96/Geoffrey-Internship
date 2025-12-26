@@ -1,10 +1,60 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import nftImage from "../../images/nftImage.jpg";
+import axios from "axios";
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import NewItemSkeleton from "./NewItemSkeleton";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const NewItems = () => {
+    const [secondsLeft, setSecondsLeft] = useState(5405);
+
+  useEffect(() => {
+    
+    if (secondsLeft <= 0) return;
+
+    
+    const timer = setInterval(() => {
+      setSecondsLeft((prev) => prev -1);
+    }, 1000);
+
+    
+    return () => clearInterval(timer);
+  }, [secondsLeft]);
+
+  
+  const hours = Math.floor(secondsLeft / 3600);
+  const minutes = Math.floor((secondsLeft % 3600) / 60);
+  const seconds = secondsLeft % 60;
+
+  
+  const [info, setInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems");
+        setInfo(response.data);
+      } catch (err){
+        setError('failed to fetch data');
+      }finally{
+        setLoading(false);
+      } 
+    };
+    fetchData();
+  },[]);
+  
+            
+  if (error) return <h2>{error}</h2>
   return (
+    <SkeletonTheme baseColor="grey" highlightColor="#525252">
     <section id="section-items" className="no-bottom">
       <div className="container">
         <div className="row">
@@ -14,8 +64,31 @@ const NewItems = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {new Array(4).fill(0).map((_, index) => (
-            <div className="col-lg-3 col-md-6 col-sm-10 col-xs-8" key={index}>
+          {loading && <NewItemSkeleton cards={1}/>}
+           <OwlCarousel
+           
+                        className="owl-theme"
+                        loop
+                        margin={16}
+                        nav
+                        responsive={{
+                          0: {
+                            items: 1,
+                          },
+                          768: {
+                            items: 2,
+                          },
+                          1024: {
+                            items: 4,
+                          },
+                          1600: {
+                            items: 4,
+                          },
+                        }}
+           >
+           {info.map((infoItem, index) => (
+            
+            <div className="item" key={index}>
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link
@@ -24,11 +97,13 @@ const NewItems = () => {
                     data-bs-placement="top"
                     title="Creator: Monica Lucas"
                   >
-                    <img className="lazy" src={AuthorImage} alt="" />
+                    <img className="lazy" src={infoItem.authorImage} alt="" />
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
-                <div className="de_countdown">5h 30m 32s</div>
+                <div className="de_countdown">{hours.toString().padStart(2, '0')}h:
+      {minutes.toString().padStart(2, '0')}m:
+      {seconds.toString().padStart(2, '0')}s</div>
 
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">
@@ -51,7 +126,7 @@ const NewItems = () => {
 
                   <Link to="/item-details">
                     <img
-                      src={nftImage}
+                      src={infoItem.nftImage}
                       className="lazy nft__item_preview"
                       alt=""
                     />
@@ -59,20 +134,22 @@ const NewItems = () => {
                 </div>
                 <div className="nft__item_info">
                   <Link to="/item-details">
-                    <h4>Pinky Ocean</h4>
+                    <h4>{infoItem.title}</h4>
                   </Link>
-                  <div className="nft__item_price">3.08 ETH</div>
+                  <div className="nft__item_price">{infoItem.price} ETH</div>
                   <div className="nft__item_like">
                     <i className="fa fa-heart"></i>
-                    <span>69</span>
+                    <span>{infoItem.likes}</span>
                   </div>
                 </div>
               </div>
             </div>
           ))}
+            </OwlCarousel>
         </div>
       </div>
     </section>
+     </SkeletonTheme>
   );
 };
 
