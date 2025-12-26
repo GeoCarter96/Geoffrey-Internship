@@ -10,27 +10,10 @@ import NewItemSkeleton from "./NewItemSkeleton";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { SkeletonTheme } from "react-loading-skeleton";
+import Countdown from "./Countdown";
 
 const NewItems = () => {
-    const [secondsLeft, setSecondsLeft] = useState(5405);
-
-  useEffect(() => {
     
-    if (secondsLeft <= 0) return;
-
-    
-    const timer = setInterval(() => {
-      setSecondsLeft((prev) => prev -1);
-    }, 1000);
-
-    
-    return () => clearInterval(timer);
-  }, [secondsLeft]);
-
-  
-  const hours = Math.floor(secondsLeft / 3600);
-  const minutes = Math.floor((secondsLeft % 3600) / 60);
-  const seconds = secondsLeft % 60;
 
   
   const [info, setInfo] = useState([]);
@@ -50,6 +33,8 @@ const NewItems = () => {
     };
     fetchData();
   },[]);
+  
+ 
   
             
   if (error) return <h2>{error}</h2>
@@ -86,7 +71,7 @@ const NewItems = () => {
                           },
                         }}
            >
-           {info.map((infoItem, index) => (
+           {info.map((infoItem, index ) => (
             
             <div className="item" key={index}>
               <div className="nft__item">
@@ -101,10 +86,18 @@ const NewItems = () => {
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
-                <div className="de_countdown">{hours.toString().padStart(2, '0')}h:
-      {minutes.toString().padStart(2, '0')}m:
-      {seconds.toString().padStart(2, '0')}s</div>
-
+                {index === 0 && (    <div  className="de_countdown">
+                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 </div>)}
+                 {index === 3 && (    <div  className="de_countdown">
+                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 </div>)}
+                 {index === 4 && (    <div  className="de_countdown">
+                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 </div>)}
+                 {index === 5 && (    <div  className="de_countdown">
+                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 </div>)}
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">
                     <div className="nft__item_buttons">
