@@ -1936,6 +1936,24 @@ header.header-light .logo-2 {
   color: #555555;
 }
 
+.card-skeleton{
+  display: flex;
+  width: 25%;
+  height: 445px;
+  padding: 0.5rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  gap: 10px;
+}
+.card-skeleton .left-col {
+  margin-right: 1 rem;
+}
+.card-skeleton .right-col{
+  flex: 1.0;
+  height: 50px;
+  margin-right: auto;
+  
+}
 .dark-scheme .comment-info .c_name {
   color: #ffffff;
 }
