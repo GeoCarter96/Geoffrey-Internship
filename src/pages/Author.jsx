@@ -28,7 +28,7 @@ const Author = () => {
   if (error) return <h2>{error}</h2>
   
   return (
-     
+     <div>
     <div id="wrapper">
       
       <div  className="no-bottom no-top" id="content">
@@ -41,27 +41,28 @@ const Author = () => {
           data-bgimage="url(images/author_banner.jpg) top"
           style={{ background: `url(${AuthorBanner}) top` }}
         ></section>
-        {info?.data.map((infoItem) => (
-       <React.Fragment key={info.id}>
-        <section aria-label="section">
+        {info?.map(info => (
+       
+        <section  key={info.id} aria-label="section">
           <div className="container">
             <div className="row">
               <div className="col-md-12">
-                <div className="d_profile de-flex">
+               
+                <div  className="d_profile de-flex">
                   
-                  <div className="de-flex-col">
+                  <div  className="de-flex-col">
                     
                     <div className="profile_avatar">
                       
-                      <img src={infoItem.authorImage} alt="" />
+                      <img src={info.authorImage} alt="" />
                       
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          {infoItem.authorName}
+                          {info.authorName}
                           <span className="profile_username">@monicaaaa</span>
                           <span id="wallet" className="profile_wallet">
-                            {infoItem.address}
+                            {info.address}
                           </span>
                           <button id="btn_copy" title="Copy Text">
                             Copy
@@ -72,9 +73,10 @@ const Author = () => {
                     </div>
                      
                   </div>
+                 
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">{ infoItem.followers}</div>
+                      <div className="profile_follower">{ info.followers}</div>
                       <Link to="#" className="btn-main">
                         Follow
                       </Link>
@@ -96,8 +98,9 @@ const Author = () => {
         
          
         </section>
-           </React.Fragment>
-           ))}
+         ))}
+           </div>
+          
       </div>
       
      
