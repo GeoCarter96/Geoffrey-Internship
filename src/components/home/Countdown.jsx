@@ -14,7 +14,7 @@ const Countdown = ({ targetTimestamp }) => {
         s: Math.floor((difference / 1000) % 60),
       };
     } else {
-      timeLeft = { h: 0, m: 0, s: 0 };
+      timeLeft = { h: 0, m: 0, s: 0, message: "EXPIRED" };
     }
     return timeLeft;
   };

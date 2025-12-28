@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 const TopSellerSkeleton = () => {
   return (
     <div>
-<div >
+<div  >
  <Skeleton/>
   <div >
     <Skeleton/>
@@ -16,15 +16,15 @@ const TopSellerSkeleton = () => {
     <Skeleton/>
   </div>
 </div> 
-<div >
+<div  >
  <Skeleton/>
   <div >
     <Skeleton/>
   </div>
 </div> 
-<div  >
+<div >
  <Skeleton/>
-  <div >
+  <div>
     <Skeleton/>
   </div>
 </div> 
