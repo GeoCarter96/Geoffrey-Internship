@@ -86,16 +86,16 @@ const NewItems = () => {
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
-                {index === 0 && (    <div  className="de_countdown">
+                {index === 0 && (    <div  >
                 <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
-                 {index === 3 && (    <div  className="de_countdown">
+                 {index === 3 && (    <div  >
                 <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
-                 {index === 4 && (    <div  className="de_countdown">
+                 {index === 4 && (    <div  >
                 <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
-                 {index === 5 && (    <div  className="de_countdown">
+                 {index === 5 && (    <div  >
                 <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
                 <div className="nft__item_wrap">

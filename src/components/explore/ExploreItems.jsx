@@ -39,7 +39,8 @@ const ExploreItems = () => {
       `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore`
     );
     setInfo(response.data);
-  };
+    setLoading(true);
+  } 
 
   useEffect(() => {
     getData();
@@ -47,7 +48,7 @@ const ExploreItems = () => {
 
   return (
      
-    <div data-aos="fade-up">
+    <div data-aos="fade-up" className="row justify-content-center">
       <div>
         <select  value={sortType} 
         onChange={handleSort} id="filter-items"  >

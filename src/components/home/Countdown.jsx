@@ -40,7 +40,7 @@ const Countdown = ({ expiryDate }) => {
     );
   }
 
-  return <div >{text}</div>;
+  return <div className="de_countdown" >{text}</div>;
 };
 
 export default Countdown
