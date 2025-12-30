@@ -1,11 +1,25 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
 import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
+import axios from "axios";
+import AuthorSkeleton from "./AuthorSkeleton";
+
+
 
 const Author = () => {
-  return (
+  const [info, setInfo] = useState(null);
+  const [following, setFollowing] = useState(false)
+ 
+    useEffect(() => {
+      axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=73855012')
+      .then(res => setInfo(res.data))
+      .catch(err => console.error(err));
+  }, []);
+ 
+ 
+return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
         <div id="top"></div>
@@ -25,29 +39,69 @@ const Author = () => {
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
-                      <img src={AuthorImage} alt="" />
-
+                      {info ? (
+                      <img src={info?.authorImage} alt="" />
+                      ) : (
+                        <AuthorSkeleton width="150px" height="150px" borderRadius="50%"/>)}
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
+                       { info ? (
                         <h4>
-                          Monica Lucas
-                          <span className="profile_username">@monicaaaa</span>
+                          {info?.authorName}
+                          <span className="profile_username">{info?.tag}</span>
+                          @{info?.tag}
                           <span id="wallet" className="profile_wallet">
-                            UDHUHWudhwd78wdt7edb32uidbwyuidhg7wUHIFUHWewiqdj87dy7
+                            {info?.address}
                           </span>
                           <button id="btn_copy" title="Copy Text">
                             Copy
                           </button>
                         </h4>
-                      </div>
+                       ) : (
+                        <h4>
+                          <AuthorSkeleton width="200px"/>
+                          <span className="profile_username">
+                            <AuthorSkeleton width="100px"/>
+                            </span>
+                            <span id="wallet" className="profile_wallet">
+                            <AuthorSkeleton width="250px"/>
+                            </span>
+                            </h4>
+                       )}
+                       </div>
                     </div>
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">573 followers</div>
-                      <Link to="#" className="btn-main">
-                        Follow
-                      </Link>
+                      {info ? (
+                        <>
+                          <div className="profile_follower">
+                            {info.followers + (following ? 1 : 0)}{" "}
+                            followers
+                          </div>
+                          {following ? (
+                            <Link
+                              to="#"
+                              className="btn-main"
+                              onClick={() => setFollowing(!following)}
+                            >
+                              Unfollow
+                            </Link>
+                          ) : (
+                            <Link
+                              to="#"
+                              className="btn-main"
+                              onClick={() => setFollowing(!following)}
+                            >
+                              Follow
+                            </Link>
+                          )}
+                        </>
+                      ) : (
+                        <div className="profile_follower">
+                          <AuthorSkeleton width="150px" height="40px" />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -55,7 +109,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems />
+                  <AuthorItems apiData={info} />
                 </div>
               </div>
             </div>
@@ -65,5 +119,6 @@ const Author = () => {
     </div>
   );
 };
+              
 
 export default Author;

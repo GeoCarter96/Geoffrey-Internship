@@ -42,8 +42,8 @@ const TopSellers = () => {
           </div>
           <div className="col-md-12">
             <ol className="author_list">
-              {info.map((infoItem, index) => (
-                <li key={index}>
+              {info.map((infoItem, _) => (
+                <li key={infoItem.id}>
                   <div className="author_list_pp">
                     <Link to="/author">
                       <img

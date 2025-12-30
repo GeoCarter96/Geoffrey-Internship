@@ -11179,7 +11179,7 @@ p.intro {
 
 #filters i {
   margin-right: 10px;
-}
+} 
 
 .bg-side {
   position: relative;
@@ -15163,7 +15163,7 @@ a.btn-slider:hover {
   margin: 0 6px;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
 }
 
 .testi-slider .flex-control-paging li a {
