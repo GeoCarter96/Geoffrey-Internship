@@ -1,34 +1,23 @@
 import React, {useState, useEffect} from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import axios from "axios";
 import AuthorSkeleton from "./AuthorSkeleton";
-import WOW from "wowjs";
-import { useCallback } from "react";
+
+
 
 const Author = () => {
-  const [info, setInfo] = useState("");
+  const [info, setInfo] = useState(null);
   const [following, setFollowing] = useState(false)
-  const authorId = useParams().id;
-     
-     const getInfo = useCallback(async () => {
-    const response = await axios.get(
-      `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${authorId}`
-    );
-
-    setInfo(response.data); 
-  }, [authorId]);
-
-  useEffect(() => {
-    new WOW.WOW({
-      live: false,
-    }).init();
-
-   
-    getInfo();
-  }, [getInfo]);
+ 
+    useEffect(() => {
+      axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=73855012')
+      .then(res => setInfo(res.data))
+      .catch(err => console.error(err));
+  }, []);
+ 
  
 return (
     <div id="wrapper">
