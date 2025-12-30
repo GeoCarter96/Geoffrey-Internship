@@ -30,7 +30,7 @@ const TopSellers = () => {
   if (error) return <h2>{error}</h2>
   return (
      <SkeletonTheme baseColor="grey" highlightColor="#525252">
-    <section id="section-popular" className="pb-5">
+    <section data-aos="fade-up" id="section-popular" className="pb-5">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">

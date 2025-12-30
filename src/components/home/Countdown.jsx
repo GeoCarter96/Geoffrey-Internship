@@ -1,45 +1,46 @@
 import react from "react";
 import  {useEffect, useState} from 'react'
 
-const Countdown = ({ targetTimestamp }) => {
+const Countdown = ({ expiryDate }) => {
 
-  const calculateTimeLeft = () => {
-    const difference = targetTimestamp - Date.now();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        h: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        m: Math.floor((difference / 1000 / 60) % 60),
-        s: Math.floor((difference / 1000) % 60),
-      };
-    } else {
-      timeLeft = { h: 0, m: 0, s: 0, message: "EXPIRED" };
-    }
-    return timeLeft;
-  };
-
-  const [time, setTime] = useState(calculateTimeLeft());
+  const [text, setText] = useState("");
+  const [time, setTime] = useState();
 
   useEffect(() => {
-     const timer = setInterval(() => {
-      setTime(calculateTimeLeft());
+    calculateTime();
+
+    const time = setInterval(() => {
+      calculateTime();
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, [targetTimestamp]);
+    setTime(time);
 
-  const pad = (n) => n.toString().padStart(2, '0');
-  const pads =(n) =>n.toString().padStart(1, '0')
-  return (
-    
-    <div  >
-      
-     {pads(time.h)}h {pad(time.m)}m {pad(time.s)}s
-      
-  
-    </div>
-  )
+    return () => {
+      clearInterval(time);
+    }
+  }, []);
+
+  function calculateTime() {
+    const millisLeft = expiryDate - Date.now();
+
+    if (millisLeft < 0) {
+      clearInterval(time);
+      setText("EXPIRED");
+      return;
+    }
+
+    const secondsLeft = millisLeft / 1000;
+    const minutesLeft = secondsLeft / 60;
+    const hoursLeft = minutesLeft / 60;
+
+    setText(
+      `${Math.floor(hoursLeft)}h ${Math.floor(minutesLeft % 60)}m ${Math.floor(
+        secondsLeft % 60
+      )}s`
+    );
+  }
+
+  return <div >{text}</div>;
 };
 
 export default Countdown

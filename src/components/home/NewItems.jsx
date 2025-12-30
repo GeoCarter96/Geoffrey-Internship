@@ -40,7 +40,7 @@ const NewItems = () => {
   if (error) return <h2>{error}</h2>
   return (
     <SkeletonTheme baseColor="grey" highlightColor="#525252">
-    <section id="section-items" className="no-bottom">
+    <section data-aos="fade-up" id="section-items" className="no-bottom">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
@@ -87,16 +87,16 @@ const NewItems = () => {
                   </Link>
                 </div>
                 {index === 0 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
                  {index === 3 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
                  {index === 4 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
                  {index === 5 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">

@@ -40,7 +40,7 @@ const HotCollections = () => {
   if (error) return <h2>{error}</h2>
   return (
     <SkeletonTheme baseColor="grey" highlightColor="#525252">
-    <section id="section-collections" className="no-bottom">
+    <section data-aos="fade-up" id="section-collections" className="no-bottom">
       <div className="container">
         <div className="row">
           <div className="col-lg-12 ">
