@@ -18,7 +18,7 @@ const Author = () => {
       .catch(err => console.error(err));
   }, []);
  
- 
+  window.scrollTo(0, 0);
 return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
