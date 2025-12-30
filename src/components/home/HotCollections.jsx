@@ -70,19 +70,19 @@ const HotCollections = () => {
                 },
               }}
  >
-         {info.map((infoItem, index) => (
+         {info?.map((infoItem, index) => (
           
             <div className="item" key={index}>
               <div className="nft_coll  ">
                 <div className="nft_wrap w-full ">
                   
-                  <Link to="/item-details"> 
+                 <Link to={`/item-details/${infoItem.nftId}`}> 
                     <img src={infoItem.nftImage }  className="lazy img-fluid " alt="" />
                   </Link>
                 </div>
                 <div className="nft_coll_pp ">
                  
-                  <Link to="/author">
+                  <Link to={`/author/${infoItem.authorId}`}>
                     <img className="lazy pp-coll " src={infoItem.authorImage } alt="" />
                   </Link>
                   <i className="fa fa-check "></i>
