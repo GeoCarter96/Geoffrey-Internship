@@ -1,13 +1,20 @@
 import React, { useEffect } from "react";
 import EthImage from "../images/ethereum.svg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import nftImage from "../images/nftImage.jpg";
+import axios from "axios";
+import AuthorSkeleton from "./AuthorSkeleton";
 
 const ItemDetails = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
+   const [info, setInfo] = useState('');
+    const id = useParams().id;
+ useEffect(() => {
+      axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${id}`)
+      .then(res => setInfo(res.data))
+      .catch(err => console.error(err));
   }, []);
+ 
 
   return (
     <div id="wrapper">
@@ -15,45 +22,44 @@ const ItemDetails = () => {
         <div id="top"></div>
         <section aria-label="section" className="mt90 sm-mt-0">
           <div className="container">
+            {info ? (
             <div className="row">
               <div className="col-md-6 text-center">
                 <img
-                  src={nftImage}
+                  src={info.nftImage}
                   className="img-fluid img-rounded mb-sm-30 nft-image"
                   alt=""
                 />
               </div>
               <div className="col-md-6">
                 <div className="item_info">
-                  <h2>Rainbow Style #194</h2>
+                  <h2>{info.title + "#" + info.tag}</h2>
 
                   <div className="item_info_counts">
                     <div className="item_info_views">
                       <i className="fa fa-eye"></i>
-                      100
+                      {info.views}
                     </div>
                     <div className="item_info_like">
                       <i className="fa fa-heart"></i>
-                      74
+                      {info.likes}
                     </div>
                   </div>
                   <p>
-                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-                    illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo.
+                    {info.description}
                   </p>
                   <div className="d-flex flex-row">
                     <div className="mr40">
                       <h6>Owner</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to="/author">
-                            <img className="lazy" src={AuthorImage} alt="" />
+                          <Link to={`/author/${info.ownerId}`}>
+                            <img className="lazy" src={info.authorImage} alt="" />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to="/author">Monica Lucas</Link>
+                          <Link to={`/author/${info.ownerId}`}>{info.ownerName}</Link>
                         </div>
                       </div>
                     </div>
@@ -64,13 +70,13 @@ const ItemDetails = () => {
                       <h6>Creator</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to="/author">
-                            <img className="lazy" src={AuthorImage} alt="" />
+                          <Link to={`/author/${info.creatorId}`}>
+                            <img className="lazy" src={info.creatorImage} alt="" />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to="/author">Monica Lucas</Link>
+                          <Link to={`/author/${info.creatorId}`}> {info.creatorName}</Link>
                         </div>
                       </div>
                     </div>
@@ -78,12 +84,69 @@ const ItemDetails = () => {
                     <h6>Price</h6>
                     <div className="nft-item-price">
                       <img src={EthImage} alt="" />
-                      <span>1.85</span>
+                      <span>{info.price}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          ) : (
+         <div className="row">
+                <div className="col-md-6 text-center">
+                  <AuthorSkeleton width="100%" height="100%" />
+                </div>
+                <div className="col-md-6">
+                  <div className="item_info">
+                    <AuthorSkeleton width="300px" height="40px" />
+                    <div className="item_info_counts">
+                      <AuthorSkeleton width="80px" height="30px" />
+                      <AuthorSkeleton width="80px" height="30px" />
+                    </div>
+                    <AuthorSkeleton width="100%" height="80px" />
+                    <div className="d-flex flex-row">
+                      <div className="mr40">
+                        <h6>Owner</h6>
+                        <div className="item_author">
+                          <div className="author_list_pp">
+                            <AuthorSkeleton
+                              width="50px"
+                              height="50px"
+                              borderRadius="50%"
+                            />
+                          </div>
+                          <div className="author_list_info">
+                            <AuthorSkeleton width="125px" height="20px" />
+                          </div>
+                        </div>
+                      </div>
+                      <div></div>
+                    </div>
+                    <div className="de_tab tab_simple">
+                      <div className="de_tab_content">
+                        <h6>Creator</h6>
+                        <div className="item_author">
+                          <div className="author_list_pp">
+                            <AuthorSkeleton
+                              width="50px"
+                              height="50px"
+                              borderRadius="50%"
+                            />
+                          </div>
+                          <div className="author_list_info">
+                            <AuthorSkeleton width="125px" height="20px" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="spacer-40"></div>
+                      <h6>Price</h6>
+                      <div className="nft-item-price">
+                        <AuthorSkeleton width="75px" height="20px" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
