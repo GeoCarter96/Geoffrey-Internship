@@ -7,7 +7,7 @@ import Countdown from "../home/Countdown";
 import ExploreItemsSkeleton from "./ExploreItemsSkeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { SkeletonTheme } from "react-loading-skeleton";
-import Skeleton from 'react-loading-skeleton';
+
 
 
 
