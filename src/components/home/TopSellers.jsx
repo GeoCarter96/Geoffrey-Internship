@@ -30,7 +30,7 @@ const TopSellers = () => {
   if (error) return <h2>{error}</h2>
   return (
      <SkeletonTheme baseColor="grey" highlightColor="#525252">
-    <section id="section-popular" className="pb-5">
+    <section data-aos="fade-up" id="section-popular" className="pb-5">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
@@ -45,7 +45,7 @@ const TopSellers = () => {
               {info.map((infoItem, _) => (
                 <li key={infoItem.id}>
                   <div className="author_list_pp">
-                    <Link to="/author">
+                    <Link to={`/author/${infoItem.authorId}`}>
                       <img
                         className="lazy pp-author"
                         src={infoItem.authorImage}
@@ -55,7 +55,7 @@ const TopSellers = () => {
                     </Link>
                   </div>
                   <div className="author_list_info">
-                    <Link to="/author">{infoItem.authorName}</Link>
+                    <Link to={`/author/${infoItem.authorId}`}>{infoItem.authorName}</Link>
                     <span>{infoItem.price} ETH</span>
                   </div>
                 </li>

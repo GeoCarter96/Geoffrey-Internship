@@ -40,7 +40,7 @@ const NewItems = () => {
   if (error) return <h2>{error}</h2>
   return (
     <SkeletonTheme baseColor="grey" highlightColor="#525252">
-    <section id="section-items" className="no-bottom">
+    <section data-aos="fade-up" id="section-items" className="no-bottom">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
@@ -77,7 +77,7 @@ const NewItems = () => {
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link
-                    to="/author"
+                   to={`/author/${infoItem.authorId}`}
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Creator: Monica Lucas"
@@ -86,17 +86,17 @@ const NewItems = () => {
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
-                {index === 0 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                {index === 0 && (    <div  >
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
-                 {index === 3 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 {index === 3 && (    <div  >
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
-                 {index === 4 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 {index === 4 && (    <div  >
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
-                 {index === 5 && (    <div  className="de_countdown">
-                <Countdown targetTimestamp={infoItem.expiryDate}/>
+                 {index === 5 && (    <div  >
+                <Countdown expiryDate={infoItem.expiryDate}/>
                  </div>)}
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">
@@ -117,7 +117,7 @@ const NewItems = () => {
                     </div>
                   </div>
 
-                  <Link to="/item-details">
+                  <Link to={`/item-details/${infoItem.nftId}`}>
                     <img
                       src={infoItem.nftImage}
                       className="lazy nft__item_preview"
@@ -126,7 +126,7 @@ const NewItems = () => {
                   </Link>
                 </div>
                 <div className="nft__item_info">
-                  <Link to="/item-details">
+                  <Link to={`/item-details/${infoItem.nftId}`}>
                     <h4>{infoItem.title}</h4>
                   </Link>
                   <div className="nft__item_price">{infoItem.price} ETH</div>

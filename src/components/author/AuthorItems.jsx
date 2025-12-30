@@ -12,7 +12,7 @@ const AuthorItems = ({apiData}) => {
   ));
 
   return (
-    <div className="de_tab_content">
+    <div data-aos="fade-up"className="de_tab_content">
       <div className="tab-1">
         <div className="row">
           { !apiData || !apiData?.nftCollection

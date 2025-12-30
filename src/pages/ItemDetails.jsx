@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EthImage from "../images/ethereum.svg";
 import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
@@ -7,14 +7,22 @@ import axios from "axios";
 import AuthorSkeleton from "./AuthorSkeleton";
 
 const ItemDetails = () => {
-   const [info, setInfo] = useState('');
-    const id = useParams().id;
+   const [info, setInfo] = useState(null);
+     const { nftId } = useParams();
  useEffect(() => {
-      axios.get(`https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${id}`)
-      .then(res => setInfo(res.data))
-      .catch(err => console.error(err));
-  }, []);
- 
+    const fetchData = async () => {
+      try {
+        const res = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails', {
+          params: { nftId: nftId || 17914494 }
+        });
+        setInfo(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [nftId]); 
 
   return (
     <div id="wrapper">
@@ -54,7 +62,7 @@ const ItemDetails = () => {
                       <div className="item_author">
                         <div className="author_list_pp">
                           <Link to={`/author/${info.ownerId}`}>
-                            <img className="lazy" src={info.authorImage} alt="" />
+                            <img className="lazy" src={info.ownerImage} alt="" />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
