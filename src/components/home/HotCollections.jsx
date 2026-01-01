@@ -10,6 +10,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { SkeletonTheme } from "react-loading-skeleton";
 import HotSkeleton from "./HotSkeleton";
+ 
 
 
 
@@ -51,10 +52,11 @@ const HotCollections = () => {
             </div>
           </div>
          <OwlCarousel
-              className="owl-theme"
+              className="owl-theme "
               loop
               margin={16}
               nav
+              
               responsive={{
                 0: {
                   items: 1,
