@@ -14150,6 +14150,12 @@ a.read_more i {
   z-index: 100;
   color: #0d0c22;
 }
+.owl-theme span[aria-label="Next"]{
+  font-size: 30px;
+}
+.owl-theme span[aria-label="Previous"]{
+  font-size: 30px;
+}
 
 .de_countdown.bg-color-secondary {
   border: none;
